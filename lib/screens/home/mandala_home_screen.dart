@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/mandala_image_viewer.dart';
+import '../../widgets/mandala_image_viewer.dart';
 
 /// Home screen displaying the interactive Child Mandala
 class MandalaHomeScreen extends StatelessWidget {
