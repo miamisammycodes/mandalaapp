@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../models/mandala_section_data.dart';
+import '../../models/home/mandala_section_data.dart';
 import 'mandala_section.dart';
 import 'mandala_section_clipper.dart';
 

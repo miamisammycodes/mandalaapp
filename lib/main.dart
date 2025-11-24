@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'screens/home/mandala_home_screen.dart';
-import 'screens/education/screens/education_content_screen.dart';
-import 'widgets/coordinate_helper.dart';
+import 'package:mandalaapp/features/home/screens/mandala_home_screen.dart';
+import 'screens/education/education_content_screen.dart';
+import 'widgets/home/coordinate_helper.dart';
 
 void main() {
   runApp(const MyApp());

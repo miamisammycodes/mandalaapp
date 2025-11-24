@@ -42,67 +42,78 @@ This roadmap outlines the complete development journey from initial setup to pro
 - Dev: `flutter_lints`, `mockito`, `riverpod_test`
 
 **Acceptance Criteria:**
-- [ ] All dependencies added to pubspec.yaml with latest versions
-- [ ] `flutter pub get` runs successfully
-- [ ] No version conflicts
-- [ ] Dev dependencies in dev_dependencies section
+- [x] All dependencies added to pubspec.yaml with latest versions
+- [x] `flutter pub get` runs successfully
+- [x] No version conflicts
+- [x] Dev dependencies in dev_dependencies section
 
 ---
 
 #### Task 1.1.2: Create Core Folder Structure
-**Description:** Set up the clean architecture folder structure
+**Description:** Set up the type-based folder structure (organized by type rather than feature)
 
 **Create directories:**
 ```
 lib/
 ├── core/
+│   ├── config/
 │   ├── constants/
 │   ├── utils/
 │   ├── services/
 │   ├── theme/
-│   └── providers/
-├── features/
-│   ├── auth/
-│   │   ├── models/
-│   │   ├── providers/
-│   │   ├── screens/
-│   │   └── widgets/
+│   ├── providers/
+│   └── router/
+├── models/
+│   ├── home/
+│   ├── education/
 │   ├── news/
-│   │   ├── models/
-│   │   ├── providers/
-│   │   ├── repositories/
-│   │   ├── screens/
-│   │   └── widgets/
+│   ├── auth/
 │   ├── events/
-│   │   ├── models/
-│   │   ├── providers/
-│   │   ├── repositories/
-│   │   ├── screens/
-│   │   └── widgets/
 │   ├── feedback/
-│   │   ├── models/
-│   │   ├── providers/
-│   │   ├── repositories/
-│   │   ├── screens/
-│   │   └── widgets/
 │   ├── subscription/
-│   │   ├── models/
-│   │   ├── providers/
-│   │   ├── screens/
-│   │   └── widgets/
 │   └── contact/
-│       ├── models/
-│       ├── providers/
-│       ├── screens/
-│       └── widgets/
-├── models/ (shared models)
-└── widgets/ (shared widgets)
+├── screens/
+│   ├── home/
+│   ├── education/
+│   ├── news/
+│   ├── auth/
+│   ├── events/
+│   ├── feedback/
+│   ├── subscription/
+│   └── contact/
+├── providers/
+│   ├── home/
+│   ├── education/
+│   ├── news/
+│   ├── auth/
+│   ├── events/
+│   ├── feedback/
+│   ├── subscription/
+│   └── contact/
+├── repositories/
+│   ├── education/
+│   ├── news/
+│   ├── auth/
+│   ├── events/
+│   ├── feedback/
+│   ├── subscription/
+│   └── contact/
+└── widgets/
+    ├── home/
+    ├── education/
+    ├── news/
+    ├── auth/
+    ├── events/
+    ├── feedback/
+    ├── subscription/
+    ├── contact/
+    └── shared/
 ```
 
 **Acceptance Criteria:**
-- [ ] All directories created
-- [ ] Existing home/ and education/ features preserved
-- [ ] .gitkeep files in empty directories (optional)
+- [x] All directories created
+- [x] Existing home/ and education/ features preserved
+- [x] Type-based organization implemented
 
 ---
 

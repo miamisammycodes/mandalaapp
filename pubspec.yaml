@@ -36,6 +36,38 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_svg: any
 
+  # State Management
+  flutter_riverpod: any
+  riverpod_annotation: any
+
+  # Navigation
+  go_router: any
+
+  # HTTP Client
+  dio: any
+
+  # Storage
+  shared_preferences: any
+  flutter_secure_storage: any
+
+  # UI & Fonts
+  google_fonts: any
+  cached_network_image: any
+
+  # Utilities
+  intl: any
+  connectivity_plus: any
+  url_launcher: any
+  flutter_html: any
+
+  # Image Handling
+  image_picker: any
+  flutter_image_compress: any
+
+  # Code Generation Annotations
+  freezed_annotation: any
+  json_annotation: any
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -46,6 +78,16 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
+
+  # Code Generation
+  freezed: any
+  json_serializable: any
+  build_runner: any
+  riverpod_generator: any
+
+  # Testing
+  mockito: any
+  riverpod_test: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

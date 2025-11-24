@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/mandala_section_data.dart';
+import '../../models/home/mandala_section_data.dart';
 
 /// A clickable section of the mandala with custom shape and tap feedback
 class MandalaSection extends StatefulWidget {
