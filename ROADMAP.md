@@ -252,11 +252,11 @@ lib/
 - Simulated network delay (500ms-1s)
 
 **Acceptance Criteria:**
-- [ ] ApiClient class created
-- [ ] Singleton pattern or Provider-based
-- [ ] Returns dummy data instead of making real HTTP calls
-- [ ] Error handling implemented
-- [ ] Logging in debug mode
+- [x] ApiClient class created
+- [x] Singleton pattern or Provider-based
+- [x] Returns dummy data instead of making real HTTP calls
+- [x] Error handling implemented
+- [x] Logging in debug mode
 
 ---
 
@@ -274,10 +274,10 @@ lib/
 - clear()
 
 **Acceptance Criteria:**
-- [ ] StorageService class created
-- [ ] All methods implemented
-- [ ] Error handling for platform issues
-- [ ] Provider created for dependency injection
+- [x] StorageService class created
+- [x] All methods implemented
+- [x] Error handling for platform issues
+- [x] Singleton pattern for dependency injection
 
 ---
 
@@ -292,10 +292,10 @@ lib/
 - Online/offline detection
 
 **Acceptance Criteria:**
-- [ ] ConnectivityService class created
-- [ ] Uses connectivity_plus package
-- [ ] StreamProvider for connectivity state
-- [ ] Handles all connection types (wifi, mobile, none)
+- [x] ConnectivityService class created
+- [x] Uses connectivity_plus package
+- [x] Stream for connectivity state (ready for StreamProvider)
+- [x] Handles all connection types (wifi, mobile, ethernet, vpn, none)
 
 ---
 
@@ -313,11 +313,11 @@ lib/
 - generateUser()
 
 **Acceptance Criteria:**
-- [ ] DummyDataService class created
-- [ ] Realistic mock data with varied content
-- [ ] Uses faker package for random data (optional)
-- [ ] Returns data in correct model format
-- [ ] Consistent IDs and references
+- [x] DummyDataService class created
+- [x] Realistic mock data with varied content
+- [x] Uses custom random data generators (faker package optional)
+- [x] Returns data in correct model format
+- [x] Consistent IDs and references
 
 ---
 
@@ -326,7 +326,7 @@ lib/
 #### Task 1.4.1: Create Button Components
 **Description:** Reusable button widgets following design system
 
-**File:** `lib/widgets/buttons/app_button.dart`
+**File:** `lib/widgets/shared/app_button.dart`
 
 **Variants:**
 - Primary button (filled, UNICEF blue)
@@ -335,18 +335,18 @@ lib/
 - Icon button
 
 **Acceptance Criteria:**
-- [ ] AppButton widget created
-- [ ] Uses design system colors and dimensions
-- [ ] Loading state support
-- [ ] Disabled state styling
-- [ ] onPressed callback
+- [x] AppButton widget created
+- [x] Uses design system colors and dimensions
+- [x] Loading state support
+- [x] Disabled state styling
+- [x] onPressed callback
 
 ---
 
 #### Task 1.4.2: Create Input Components
 **Description:** Styled text input fields
 
-**File:** `lib/widgets/inputs/app_text_field.dart`
+**File:** `lib/widgets/shared/app_text_field.dart`
 
 **Features:**
 - Standard text input
@@ -356,18 +356,18 @@ lib/
 - Prefix/suffix icons
 
 **Acceptance Criteria:**
-- [ ] AppTextField widget created
-- [ ] Uses design system styling
-- [ ] Error state with red border
-- [ ] Focus state styling
-- [ ] Accessibility labels
+- [x] AppTextField widget created
+- [x] Uses design system styling
+- [x] Error state with red border
+- [x] Focus state styling
+- [x] Accessibility labels
 
 ---
 
 #### Task 1.4.3: Create Card Components
 **Description:** Reusable card containers
 
-**File:** `lib/widgets/cards/app_card.dart`
+**File:** `lib/widgets/shared/app_card.dart`
 
 **Variants:**
 - Basic card (white background, 12px radius, soft shadow)
@@ -375,10 +375,10 @@ lib/
 - Interactive card (with tap feedback)
 
 **Acceptance Criteria:**
-- [ ] AppCard widget created
-- [ ] Uses design system shadows and radius
-- [ ] Padding options
-- [ ] onTap callback for interactive cards
+- [x] AppCard widget created
+- [x] Uses design system shadows and radius
+- [x] Padding options
+- [x] onTap callback for interactive cards
 
 ---
 
@@ -386,8 +386,8 @@ lib/
 **Description:** Loading indicators and skeleton screens
 
 **Files:**
-- `lib/widgets/loading/app_loading_indicator.dart`
-- `lib/widgets/loading/skeleton_loader.dart`
+- `lib/widgets/shared/app_loading_indicator.dart`
+- `lib/widgets/shared/skeleton_loader.dart`
 
 **Components:**
 - Circular progress indicator (UNICEF blue)
@@ -396,17 +396,17 @@ lib/
 - Skeleton list
 
 **Acceptance Criteria:**
-- [ ] Loading widgets created
-- [ ] Uses brand colors
-- [ ] Shimmer effect for skeletons
-- [ ] Reusable across app
+- [x] Loading widgets created
+- [x] Uses brand colors
+- [x] Shimmer effect for skeletons
+- [x] Reusable across app
 
 ---
 
 #### Task 1.4.5: Create Empty State Components
 **Description:** Display when no data available
 
-**File:** `lib/widgets/empty_state.dart`
+**File:** `lib/widgets/shared/empty_state.dart`
 
 **Features:**
 - Icon/illustration
@@ -415,10 +415,10 @@ lib/
 - Optional action button
 
 **Acceptance Criteria:**
-- [ ] EmptyState widget created
-- [ ] Customizable message and icon
-- [ ] Uses design system typography
-- [ ] Centered layout
+- [x] EmptyState widget created
+- [x] Customizable message and icon
+- [x] Uses design system typography
+- [x] Centered layout
 
 ---
 
