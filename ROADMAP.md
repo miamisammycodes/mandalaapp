@@ -131,10 +131,10 @@ lib/
 **Note:** Using simple Dart constants for now. When backend API is ready, you can switch to `--dart-define` for build-time configuration or implement Flavors for true environment separation.
 
 **Acceptance Criteria:**
-- [ ] AppConfig class created in `lib/core/config/app_config.dart`
-- [ ] All configuration as static const values
-- [ ] Documentation comments explaining each config
-- [ ] Imported and used in main.dart
+- [x] AppConfig class created in `lib/core/config/app_config.dart`
+- [x] All configuration as static const values
+- [x] Documentation comments explaining each config
+- [x] Imported and used in main.dart
 
 ---
 
@@ -153,10 +153,10 @@ lib/
 - Card/Input backgrounds
 
 **Acceptance Criteria:**
-- [ ] All colors defined as static const Color
-- [ ] Documentation comments for each color
-- [ ] Colors match CHILD_PROTECTION_DESIGN.md exactly
-- [ ] Organized by category (primary, semantic, backgrounds, text)
+- [x] All colors defined as static const Color
+- [x] Documentation comments for each color
+- [x] Colors match CHILD_PROTECTION_DESIGN.md exactly
+- [x] Organized by category (primary, semantic, backgrounds, text)
 
 ---
 
@@ -171,10 +171,10 @@ lib/
 - Special: Button text, Input text
 
 **Acceptance Criteria:**
-- [ ] All text styles defined
-- [ ] Uses google_fonts for Poppins and Nunito Sans
-- [ ] Font sizes, weights, line heights match design
-- [ ] Reusable TextStyle objects
+- [x] All text styles defined
+- [x] Uses google_fonts for Poppins and Nunito Sans
+- [x] Font sizes, weights, line heights match design
+- [x] Reusable TextStyle objects
 
 ---
 
@@ -192,9 +192,9 @@ lib/
 - Touch targets: 44x44 minimum
 
 **Acceptance Criteria:**
-- [ ] All dimensions defined
-- [ ] Organized by category
-- [ ] Documentation for usage
+- [x] All dimensions defined
+- [x] Organized by category
+- [x] Documentation for usage
 
 ---
 
@@ -213,10 +213,10 @@ lib/
 - AppBarTheme
 
 **Acceptance Criteria:**
-- [ ] Light theme fully configured
-- [ ] All component themes defined
-- [ ] Uses design system constants
-- [ ] Applied in main.dart MaterialApp
+- [x] Light theme fully configured
+- [x] All component themes defined
+- [x] Uses design system constants
+- [x] Applied in main.dart MaterialApp
 
 ---
 
@@ -231,9 +231,9 @@ lib/
 - Strong shadow (modals): offset (0, 8), blur 16
 
 **Acceptance Criteria:**
-- [ ] Shadow constants defined
-- [ ] Matches CHILD_PROTECTION_DESIGN.md specifications
-- [ ] Reusable BoxShadow lists
+- [x] Shadow constants defined
+- [x] Matches CHILD_PROTECTION_DESIGN.md specifications
+- [x] Reusable BoxShadow lists
 
 ---
 
