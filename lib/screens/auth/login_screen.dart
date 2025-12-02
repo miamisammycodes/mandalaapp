@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_dimensions.dart';
 import '../../core/router/app_router.dart';
+import '../../main.dart';
 import '../../providers/auth/auth_provider.dart';
 import '../../widgets/shared/app_button.dart';
 import '../../widgets/shared/app_text_field.dart';
@@ -42,14 +43,23 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
 
     if (success && mounted) {
-      // Check if there's a redirect URL
+      // Show success snackbar - the router will handle navigation via redirect
+      rootScaffoldMessengerKey.currentState?.showSnackBar(
+        const SnackBar(
+          content: Text('Logged in successfully!'),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
+        ),
+      );
+      
+      // Check if there's a redirect URL, otherwise router redirect will handle it
       final redirectUrl =
           GoRouterState.of(context).uri.queryParameters['redirect'];
       if (redirectUrl != null) {
         context.go(Uri.decodeComponent(redirectUrl));
-      } else {
-        context.goNamed(AppRoutes.home);
       }
+      // Note: If no redirect URL, the router's redirect logic will automatically
+      // navigate to home since authenticated users can't be on auth routes
     }
   }
 
@@ -176,11 +186,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 SizedBox(height: AppDimensions.spaceLg),
 
                 // Login button
-                AppButton(
-                  text: 'Login',
-                  onPressed: _handleLogin,
-                  isLoading: authState.isLoading,
-                ),
+                if (authState.isLoading)
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                else
+                  AppButton(
+                    text: 'Login',
+                    onPressed: _handleLogin,
+                  ),
                 SizedBox(height: AppDimensions.spaceLg),
 
                 // Sign up link

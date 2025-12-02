@@ -346,28 +346,36 @@ class AppButton extends StatelessWidget {
     switch (variant) {
       case AppButtonVariant.primary:
       case AppButtonVariant.icon:
+        // When loading, keep the original background color with slight opacity
+        final bgColor = backgroundColor ?? AppColors.unicefBlue;
         return ButtonColors(
-          background: backgroundColor ?? AppColors.unicefBlue,
+          background: bgColor,
           foreground: textColor ?? Colors.white,
-          disabledBackground:
-              backgroundColor?.withValues(alpha: 0.5) ?? AppColors.surfaceGray,
-          disabledForeground: Colors.white.withValues(alpha: 0.6),
+          disabledBackground: isLoading 
+              ? bgColor.withValues(alpha: 0.8) // Keep visible during loading
+              : backgroundColor?.withValues(alpha: 0.5) ?? AppColors.surfaceGray,
+          disabledForeground: Colors.white,
         );
 
       case AppButtonVariant.secondary:
+        final fgColor = textColor ?? AppColors.unicefBlue;
+        final bdColor = borderColor ?? AppColors.unicefBlue;
         return ButtonColors(
           background: Colors.transparent,
-          foreground: textColor ?? AppColors.unicefBlue,
-          border: borderColor ?? AppColors.unicefBlue,
-          disabledForeground: AppColors.textLight,
-          disabledBorder: AppColors.textLight.withValues(alpha: 0.3),
+          foreground: fgColor,
+          border: bdColor,
+          disabledForeground: isLoading ? fgColor : AppColors.textLight,
+          disabledBorder: isLoading 
+              ? bdColor.withValues(alpha: 0.8) 
+              : AppColors.textLight.withValues(alpha: 0.3),
         );
 
       case AppButtonVariant.text:
+        final fgColor = textColor ?? AppColors.unicefBlue;
         return ButtonColors(
           background: Colors.transparent,
-          foreground: textColor ?? AppColors.unicefBlue,
-          disabledForeground: AppColors.textLight,
+          foreground: fgColor,
+          disabledForeground: isLoading ? fgColor : AppColors.textLight,
         );
     }
   }

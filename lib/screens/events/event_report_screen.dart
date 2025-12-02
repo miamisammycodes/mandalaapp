@@ -131,7 +131,7 @@ class _EventReportScreenState extends State<EventReportScreen> {
             ),
             SizedBox(height: AppDimensions.spaceSm),
             DropdownButtonFormField<String>(
-              value: _selectedCategory,
+              initialValue: _selectedCategory,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
@@ -233,7 +233,7 @@ class _EventReportScreenState extends State<EventReportScreen> {
               onChanged: (value) {
                 setState(() => _isAnonymous = value);
               },
-              activeColor: AppColors.unicefBlue,
+              activeThumbColor: AppColors.unicefBlue,
               contentPadding: EdgeInsets.zero,
             ),
             SizedBox(height: AppDimensions.spaceLg),

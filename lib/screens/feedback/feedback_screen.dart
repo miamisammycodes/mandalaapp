@@ -347,7 +347,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
             ),
             SizedBox(height: AppDimensions.spaceSm),
             DropdownButtonFormField<String>(
-              value: _selectedCategory,
+              initialValue: _selectedCategory,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppDimensions.radiusMd),

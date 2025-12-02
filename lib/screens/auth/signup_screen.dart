@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_dimensions.dart';
 import '../../core/router/app_router.dart';
+import '../../main.dart';
 import '../../providers/auth/auth_provider.dart';
 import '../../widgets/shared/app_button.dart';
 import '../../widgets/shared/app_text_field.dart';
@@ -66,7 +67,16 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     );
 
     if (success && mounted) {
-      context.goNamed(AppRoutes.home);
+      // Show success snackbar - the router will handle navigation via redirect
+      rootScaffoldMessengerKey.currentState?.showSnackBar(
+        const SnackBar(
+          content: Text('Account created successfully!'),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
+        ),
+      );
+      // Note: The router's redirect logic will automatically navigate to home
+      // since authenticated users can't be on auth routes
     }
   }
 
@@ -212,11 +222,15 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 SizedBox(height: AppDimensions.spaceLg),
 
                 // Signup button
-                AppButton(
-                  text: 'Create Account',
-                  onPressed: _handleSignup,
-                  isLoading: authState.isLoading,
-                ),
+                if (authState.isLoading)
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                else
+                  AppButton(
+                    text: 'Create Account',
+                    onPressed: _handleSignup,
+                  ),
                 SizedBox(height: AppDimensions.spaceLg),
 
                 // Login link

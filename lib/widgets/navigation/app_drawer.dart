@@ -50,12 +50,12 @@ class AppDrawer extends ConsumerWidget {
                 ),
                 _buildNavItem(
                   context: context,
+                  ref: ref,
                   icon: Icons.report_outlined,
                   selectedIcon: Icons.report,
                   title: 'Report Event',
                   routeName: AppRoutes.eventsReport,
                   requiresAuth: true,
-                  isAuthenticated: isAuthenticated,
                 ),
                 const Divider(),
                 _buildNavItem(
@@ -146,12 +146,12 @@ class AppDrawer extends ConsumerWidget {
 
   Widget _buildNavItem({
     required BuildContext context,
+    WidgetRef? ref,
     required IconData icon,
     required IconData selectedIcon,
     required String title,
     required String routeName,
     bool requiresAuth = false,
-    bool isAuthenticated = false,
   }) {
     final currentRoute = GoRouterState.of(context).name;
     final isSelected = currentRoute == routeName;
@@ -170,23 +170,28 @@ class AppDrawer extends ConsumerWidget {
       ),
       selected: isSelected,
       onTap: () {
+        // Get the router before closing the drawer
+        final router = GoRouter.of(context);
         Navigator.pop(context); // Close drawer
 
-        if (requiresAuth && !isAuthenticated) {
-          // Show login prompt for protected routes
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text('Please login to access this feature'),
-              action: SnackBarAction(
-                label: 'Login',
-                onPressed: () => context.goNamed(AppRoutes.login),
+        if (requiresAuth && ref != null) {
+          final isAuthenticated = ref.read(authStateProvider).isAuthenticated;
+          if (!isAuthenticated) {
+            // Show login prompt for protected routes
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text('Please login to access this feature'),
+                action: SnackBarAction(
+                  label: 'Login',
+                  onPressed: () => router.goNamed(AppRoutes.login),
+                ),
               ),
-            ),
-          );
-          return;
+            );
+            return;
+          }
         }
 
-        context.goNamed(routeName);
+        router.goNamed(routeName);
       },
     );
   }
@@ -204,11 +209,21 @@ class AppDrawer extends ConsumerWidget {
           style: TextStyle(color: AppColors.errorColor),
         ),
         onTap: () async {
+          final scaffoldMessenger = ScaffoldMessenger.of(context);
+          final router = GoRouter.of(context);
           Navigator.pop(context); // Close drawer
           await ref.read(authStateProvider.notifier).logout();
-          if (context.mounted) {
-            context.goNamed(AppRoutes.home);
-          }
+          
+          // Show success message
+          scaffoldMessenger.showSnackBar(
+            const SnackBar(
+              content: Text('Logged out successfully!'),
+              backgroundColor: Colors.green,
+              duration: Duration(seconds: 2),
+            ),
+          );
+          
+          router.goNamed(AppRoutes.home);
         },
       );
     }

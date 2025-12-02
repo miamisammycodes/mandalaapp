@@ -65,17 +65,28 @@ class AppPaths {
 /// Global navigator key for navigation from anywhere
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 
+/// Listenable for router refresh
+class AuthChangeNotifier extends ChangeNotifier {
+  AuthChangeNotifier(Ref ref) {
+    ref.listen(authStateProvider, (previous, current) {
+      notifyListeners();
+    });
+  }
+}
+
 /// Router provider with auth state watching
 final routerProvider = Provider<GoRouter>((ref) {
-  final authState = ref.watch(authStateProvider);
+  final authChangeNotifier = AuthChangeNotifier(ref);
 
   return GoRouter(
     navigatorKey: rootNavigatorKey,
     initialLocation: AppPaths.home,
     debugLogDiagnostics: true,
     routes: _routes,
+    refreshListenable: authChangeNotifier,
     errorBuilder: (context, state) => _ErrorScreen(error: state.error),
     redirect: (context, state) {
+      final authState = ref.read(authStateProvider);
       final isAuthenticated = authState.isAuthenticated;
       final currentPath = state.matchedLocation;
 

@@ -125,7 +125,7 @@ class _CoordinateHelperState extends State<CoordinateHelper> {
                     child: Text('${index + 1}', style: const TextStyle(fontSize: 12)),
                   ),
                   title: Text(
-                    'Point ${index + 1}: (${percentX}, ${percentY})',
+                    'Point ${index + 1}: ($percentX, $percentY)',
                     style: const TextStyle(fontSize: 12, fontFamily: 'monospace'),
                   ),
                   subtitle: Text(

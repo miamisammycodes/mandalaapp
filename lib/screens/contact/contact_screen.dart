@@ -160,7 +160,7 @@ class _ContactScreenState extends State<ContactScreen> {
                     ),
                     SizedBox(height: AppDimensions.spaceSm),
                     DropdownButtonFormField<String>(
-                      value: _selectedInquiryType,
+                      initialValue: _selectedInquiryType,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius:

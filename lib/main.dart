@@ -5,6 +5,10 @@ import 'core/config/app_config.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 
+/// Global key for ScaffoldMessenger to show snackbars across navigation
+final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
+
 void main() {
   // Print configuration on app startup (debug mode only)
   AppConfig.printConfig();
@@ -28,6 +32,7 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       routerConfig: router,
+      scaffoldMessengerKey: rootScaffoldMessengerKey,
     );
   }
 }
