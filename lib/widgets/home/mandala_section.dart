@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
 import '../../models/home/mandala_section_data.dart';
 
 /// A clickable section of the mandala with custom shape and tap feedback
@@ -18,17 +20,8 @@ class MandalaSection extends StatefulWidget {
 
 class _MandalaSectionState extends State<MandalaSection> {
   void _handleTap() {
-    // Debug: Show which section was tapped
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Tapped: ${widget.data.title}'),
-        duration: const Duration(milliseconds: 800),
-      ),
-    );
-
-    // Navigate to the section's route
-    // TODO: Update to use go_router when routing is configured
-    Navigator.pushNamed(context, widget.data.route);
+    // Navigate to the section's route using push (keeps home in stack for back navigation)
+    context.push(widget.data.route);
   }
 
   @override

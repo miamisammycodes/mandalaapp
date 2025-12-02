@@ -342,4 +342,23 @@ class AppDimensions {
 
   /// Circular border radius
   static BorderRadius get radiusCircle => BorderRadius.circular(radiusCircular);
+
+  // ============================================================================
+  // ALIASES (for convenience and backward compatibility)
+  // ============================================================================
+
+  /// Spacing aliases
+  static const double spacingSmall = spaceSm;
+  static const double spacingMedium = spaceMd;
+  static const double spacingLarge = spaceLg;
+  static const double spacingXLarge = spaceXl;
+
+  /// Padding aliases
+  static const double paddingSmall = spaceSm;
+  static const double paddingMedium = spaceMd;
+  static const double paddingLarge = spaceLg;
+
+  /// Radius alias (use radiusSm, radiusMd, etc. directly when possible)
+  /// This is kept for backward compatibility
+  // Note: radiusSmall getter is already defined above
 }

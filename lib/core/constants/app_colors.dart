@@ -185,4 +185,35 @@ class AppColors {
   static Color shadow([double opacity = 0.13]) {
     return Color.fromRGBO(0, 0, 0, opacity);
   }
+
+  // ============================================================================
+  // ALIASES (for convenience and backward compatibility)
+  // ============================================================================
+
+  /// Alias for background
+  static const Color appBackground = background;
+
+  /// Alias for textDark
+  static const Color headingColor = textDark;
+
+  /// Alias for textMedium
+  static const Color bodyColor = textMedium;
+
+  /// Alias for textLight
+  static const Color lightTextColor = textLight;
+
+  /// Alias for error
+  static const Color errorColor = error;
+
+  /// Alias for success
+  static const Color successColor = success;
+
+  /// Alias for warning
+  static const Color warningColor = warning;
+
+  /// Alias for info
+  static const Color infoColor = info;
+
+  /// Alias for surfaceGray (for input backgrounds)
+  static const Color inputBackground = surfaceGray;
 }
