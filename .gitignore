@@ -6,4 +6,4 @@ sentry.properties
 .pub/
 **/doc/api/
 /api_data/
-.docs
+/docs
