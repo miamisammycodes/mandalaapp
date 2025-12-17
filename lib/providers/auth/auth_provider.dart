@@ -1,74 +1,107 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/auth/auth_state.dart';
-import '../../models/auth/user.dart';
-import '../../repositories/auth/auth_repository.dart';
+import '../../models/auth/child_profile.dart';
+import '../../models/auth/otp_verification.dart';
+import '../../models/auth/parent_user.dart';
+import '../../models/auth/user_session.dart';
+import '../../repositories/auth/parent_auth_repository.dart';
 
-/// Provider for the AuthRepository
-final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  return AuthRepository();
+/// Provider for the ParentAuthRepository
+final parentAuthRepositoryProvider = Provider<ParentAuthRepository>((ref) {
+  return ParentAuthRepository();
 });
 
 /// Provider for the current authentication state
 final authStateProvider =
     StateNotifierProvider<AuthNotifier, AuthState>((ref) {
-  final repository = ref.watch(authRepositoryProvider);
+  final repository = ref.watch(parentAuthRepositoryProvider);
   return AuthNotifier(repository);
 });
 
-/// Convenience provider to check if user is authenticated
+/// Provider for OTP state (separate from auth state for UI)
+final otpStateProvider = StateNotifierProvider<OtpNotifier, OtpState>((ref) {
+  final repository = ref.watch(parentAuthRepositoryProvider);
+  return OtpNotifier(repository);
+});
+
+// ============================================================================
+// CONVENIENCE PROVIDERS
+// ============================================================================
+
+/// Check if user is authenticated
 final isAuthenticatedProvider = Provider<bool>((ref) {
   return ref.watch(authStateProvider).isAuthenticated;
 });
 
-/// Convenience provider to get the current user
-final currentUserProvider = Provider<User?>((ref) {
-  return ref.watch(authStateProvider).user;
+/// Get the current parent user
+final currentParentProvider = Provider<ParentUser?>((ref) {
+  return ref.watch(authStateProvider).parent;
 });
+
+/// Get the active child (in child mode)
+final activeChildProvider = Provider<ChildProfile?>((ref) {
+  return ref.watch(authStateProvider).activeChild;
+});
+
+/// Check if in parent mode
+final isParentModeProvider = Provider<bool>((ref) {
+  return ref.watch(authStateProvider).isParentMode;
+});
+
+/// Check if in child mode
+final isChildModeProvider = Provider<bool>((ref) {
+  return ref.watch(authStateProvider).isChildMode;
+});
+
+/// Get session type
+final sessionTypeProvider = Provider<SessionType?>((ref) {
+  return ref.watch(authStateProvider).sessionType;
+});
+
+/// Get all children
+final childrenProvider = Provider<List<ChildProfile>>((ref) {
+  return ref.watch(authStateProvider).children;
+});
+
+/// Check if parent has children
+final hasChildrenProvider = Provider<bool>((ref) {
+  return ref.watch(authStateProvider).hasChildren;
+});
+
+// ============================================================================
+// AUTH NOTIFIER
+// ============================================================================
 
 /// State notifier for authentication
 class AuthNotifier extends StateNotifier<AuthState> {
-  final AuthRepository _repository;
+  final ParentAuthRepository _repository;
 
   AuthNotifier(this._repository) : super(AuthState.initial()) {
-    // Check auth status on initialization
-    _checkAuthStatus();
+    _checkExistingSession();
   }
 
-  /// Check if user is already authenticated (on app start)
-  Future<void> _checkAuthStatus() async {
+  /// Check for existing session on app start
+  Future<void> _checkExistingSession() async {
     try {
-      final result = await _repository.checkAuthStatus();
-      if (result != null) {
-        state = AuthState.authenticated(
-          user: result.user,
-          token: result.token,
-        );
+      final session = await _repository.checkExistingSession();
+      if (session != null) {
+        state = AuthState.authenticated(session);
+      } else {
+        state = AuthState.unauthenticated();
       }
     } catch (e) {
-      // Silently fail - user is not authenticated
-      state = AuthState.initial();
+      state = AuthState.unauthenticated();
     }
   }
 
-  /// Login with email and password
-  Future<bool> login({
-    required String email,
-    required String password,
-  }) async {
+  /// Login with OTP verification result
+  Future<bool> loginWithOtp(ParentUser parent) async {
     state = AuthState.loading();
 
     try {
-      final result = await _repository.login(
-        email: email,
-        password: password,
-      );
-
-      state = AuthState.authenticated(
-        user: result.user,
-        token: result.token,
-      );
-
+      final session = await _repository.createParentSession(parent);
+      state = AuthState.authenticated(session);
       return true;
     } catch (e) {
       state = AuthState.error(e.toString().replaceFirst('Exception: ', ''));
@@ -76,58 +109,176 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
-  /// Register a new user
-  Future<bool> register({
+  /// Switch to child mode
+  Future<bool> switchToChild({
+    required String childId,
+    required String pin,
+  }) async {
+    if (state.session == null) return false;
+
+    try {
+      final session = await _repository.switchToChild(
+        currentSession: state.session!,
+        childId: childId,
+        pin: pin,
+      );
+      state = AuthState.authenticated(session);
+      return true;
+    } catch (e) {
+      // Don't change state on PIN error, just return false
+      return false;
+    }
+  }
+
+  /// Switch back to parent mode
+  Future<void> switchToParent() async {
+    if (state.session == null) return;
+
+    try {
+      final session = await _repository.switchToParent(state.session!);
+      state = AuthState.authenticated(session);
+    } catch (e) {
+      // Keep current state on error
+    }
+  }
+
+  /// Add a child profile
+  Future<bool> addChild({
     required String name,
-    required String email,
-    required String password,
+    required DateTime dateOfBirth,
+    required String pin,
   }) async {
-    state = AuthState.loading();
+    if (state.session == null) return false;
 
     try {
-      final result = await _repository.register(
+      final session = await _repository.addChild(
+        currentSession: state.session!,
         name: name,
-        email: email,
-        password: password,
+        dateOfBirth: dateOfBirth,
+        pin: pin,
       );
-
-      state = AuthState.authenticated(
-        user: result.user,
-        token: result.token,
-      );
-
+      state = AuthState.authenticated(session);
       return true;
     } catch (e) {
-      state = AuthState.error(e.toString().replaceFirst('Exception: ', ''));
       return false;
     }
   }
 
-  /// Request password reset
-  Future<String?> forgotPassword({required String email}) async {
-    state = AuthState.loading();
+  /// Update a child profile
+  Future<bool> updateChild(ChildProfile child) async {
+    if (state.session == null) return false;
 
     try {
-      final message = await _repository.forgotPassword(email: email);
-      state = AuthState.initial();
-      return message;
+      final session = await _repository.updateChild(
+        currentSession: state.session!,
+        updatedChild: child,
+      );
+      state = AuthState.authenticated(session);
+      return true;
     } catch (e) {
-      final errorMessage = e.toString().replaceFirst('Exception: ', '');
-      state = AuthState.error(errorMessage);
+      return false;
+    }
+  }
+
+  /// Remove a child profile
+  Future<bool> removeChild(String childId) async {
+    if (state.session == null) return false;
+
+    try {
+      final session = await _repository.removeChild(
+        currentSession: state.session!,
+        childId: childId,
+      );
+      state = AuthState.authenticated(session);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /// Update parent name
+  Future<bool> updateParentName(String name) async {
+    if (state.session == null) return false;
+
+    try {
+      final session = await _repository.updateParentName(
+        currentSession: state.session!,
+        name: name,
+      );
+      state = AuthState.authenticated(session);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /// Logout
+  Future<void> logout() async {
+    await _repository.logout();
+    state = AuthState.unauthenticated();
+  }
+
+  /// Clear error
+  void clearError() {
+    if (state.hasError) {
+      state = state.clearError();
+    }
+  }
+}
+
+// ============================================================================
+// OTP NOTIFIER
+// ============================================================================
+
+/// State notifier for OTP flow
+class OtpNotifier extends StateNotifier<OtpState> {
+  final ParentAuthRepository _repository;
+
+  OtpNotifier(this._repository) : super(OtpState.initial());
+
+  /// Send OTP to phone number
+  Future<bool> sendOtp(String phoneNumber) async {
+    state = OtpState.sending(phoneNumber);
+
+    try {
+      state = await _repository.sendOtp(phoneNumber);
+      return true;
+    } catch (e) {
+      state = OtpState.error(e.toString().replaceFirst('Exception: ', ''));
+      return false;
+    }
+  }
+
+  /// Verify OTP code
+  Future<ParentUser?> verifyOtp(String code) async {
+    if (state.phoneNumber == null) return null;
+
+    state = OtpState.verifying(state.phoneNumber!);
+
+    try {
+      final parent = await _repository.verifyOtp(
+        phoneNumber: state.phoneNumber!,
+        code: code,
+      );
+      state = OtpState.verified(state.phoneNumber!);
+      return parent;
+    } catch (e) {
+      state = OtpState.error(e.toString().replaceFirst('Exception: ', ''));
       return null;
     }
   }
 
-  /// Logout the current user
-  Future<void> logout() async {
-    await _repository.logout();
-    state = AuthState.initial();
+  /// Resend OTP
+  Future<bool> resendOtp() async {
+    if (state.phoneNumber == null) return false;
+    return sendOtp(state.phoneNumber!);
   }
 
-  /// Clear any error state
-  void clearError() {
-    if (state.error != null) {
-      state = state.copyWith(error: null);
-    }
+  /// Reset OTP state
+  void reset() {
+    state = OtpState.initial();
   }
+
+  /// Get demo OTP for display
+  String get demoOtp => _repository.demoOtp;
 }

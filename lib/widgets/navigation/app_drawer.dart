@@ -6,7 +6,7 @@ import '../../core/constants/app_colors.dart';
 import '../../core/router/app_router.dart';
 import '../../providers/auth/auth_provider.dart';
 
-/// Main navigation drawer for the app
+/// Modern navigation drawer for the app
 class AppDrawer extends ConsumerWidget {
   const AppDrawer({super.key});
 
@@ -14,68 +14,112 @@ class AppDrawer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authStateProvider);
     final isAuthenticated = authState.isAuthenticated;
-    final user = authState.user;
+    final parent = authState.parent;
+    final activeChild = authState.activeChild;
+
+    final displayName = authState.isChildMode
+        ? activeChild?.name
+        : parent?.name;
+    final displaySubtitle = authState.isChildMode
+        ? 'Child Mode'
+        : parent?.phoneNumber;
 
     return Drawer(
+      backgroundColor: Colors.white,
       child: Column(
         children: [
           // Header
-          _buildHeader(context, isAuthenticated, user?.name, user?.email),
+          _buildHeader(context, isAuthenticated, displayName, displaySubtitle, authState.isChildMode),
 
           // Navigation items
           Expanded(
             child: ListView(
-              padding: EdgeInsets.zero,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               children: [
                 _buildNavItem(
                   context: context,
                   icon: Icons.home_outlined,
-                  selectedIcon: Icons.home,
+                  activeIcon: Icons.home_rounded,
                   title: 'Home',
                   routeName: AppRoutes.home,
                 ),
                 _buildNavItem(
                   context: context,
-                  icon: Icons.article_outlined,
-                  selectedIcon: Icons.article,
+                  icon: Icons.auto_stories_outlined,
+                  activeIcon: Icons.auto_stories_rounded,
+                  title: 'Learning',
+                  routeName: AppRoutes.chapters,
+                ),
+                _buildNavItem(
+                  context: context,
+                  icon: Icons.newspaper_outlined,
+                  activeIcon: Icons.newspaper_rounded,
                   title: 'News',
                   routeName: AppRoutes.news,
                 ),
                 _buildNavItem(
                   context: context,
-                  icon: Icons.school_outlined,
-                  selectedIcon: Icons.school,
-                  title: 'Education',
-                  routeName: AppRoutes.education,
+                  icon: Icons.event_outlined,
+                  activeIcon: Icons.event_rounded,
+                  title: 'Events',
+                  routeName: AppRoutes.events,
                 ),
                 _buildNavItem(
                   context: context,
-                  ref: ref,
-                  icon: Icons.report_outlined,
-                  selectedIcon: Icons.report,
-                  title: 'Report Event',
-                  routeName: AppRoutes.eventsReport,
-                  requiresAuth: true,
+                  icon: Icons.shield_outlined,
+                  activeIcon: Icons.shield_rounded,
+                  title: 'Online Safety',
+                  routeName: AppRoutes.onlineSafety,
                 ),
-                const Divider(),
+
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                  child: Divider(height: 1),
+                ),
+
+                if (isAuthenticated) ...[
+                  _buildNavItem(
+                    context: context,
+                    ref: ref,
+                    icon: Icons.family_restroom_outlined,
+                    activeIcon: Icons.family_restroom_rounded,
+                    title: 'My Family',
+                    routeName: AppRoutes.parentDashboard,
+                    requiresAuth: true,
+                  ),
+                  _buildNavItem(
+                    context: context,
+                    ref: ref,
+                    icon: Icons.flag_outlined,
+                    activeIcon: Icons.flag_rounded,
+                    title: 'Report Event',
+                    routeName: AppRoutes.eventsReport,
+                    requiresAuth: true,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Divider(height: 1),
+                  ),
+                ],
+
                 _buildNavItem(
                   context: context,
-                  icon: Icons.feedback_outlined,
-                  selectedIcon: Icons.feedback,
+                  icon: Icons.chat_bubble_outline_rounded,
+                  activeIcon: Icons.chat_bubble_rounded,
                   title: 'Feedback',
                   routeName: AppRoutes.feedback,
                 ),
                 _buildNavItem(
                   context: context,
-                  icon: Icons.email_outlined,
-                  selectedIcon: Icons.email,
+                  icon: Icons.mail_outline_rounded,
+                  activeIcon: Icons.mail_rounded,
                   title: 'Subscribe',
                   routeName: AppRoutes.subscribe,
                 ),
                 _buildNavItem(
                   context: context,
-                  icon: Icons.contact_mail_outlined,
-                  selectedIcon: Icons.contact_mail,
+                  icon: Icons.help_outline_rounded,
+                  activeIcon: Icons.help_rounded,
                   title: 'Contact Us',
                   routeName: AppRoutes.contact,
                 ),
@@ -83,9 +127,15 @@ class AppDrawer extends ConsumerWidget {
             ),
           ),
 
-          // Auth section at bottom
-          const Divider(height: 1),
-          _buildAuthSection(context, ref, isAuthenticated),
+          // Bottom section
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade50,
+              border: Border(top: BorderSide(color: Colors.grey.shade200)),
+            ),
+            child: _buildAuthButton(context, ref, isAuthenticated),
+          ),
         ],
       ),
     );
@@ -95,50 +145,69 @@ class AppDrawer extends ConsumerWidget {
     BuildContext context,
     bool isAuthenticated,
     String? userName,
-    String? userEmail,
+    String? userSubtitle,
+    bool isChildMode,
   ) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).padding.top + 24,
-        left: 16,
-        right: 16,
+        left: 20,
+        right: 20,
         bottom: 24,
       ),
-      decoration: const BoxDecoration(
-        color: AppColors.unicefBlue,
+      decoration: BoxDecoration(
+        color: isChildMode ? AppColors.pastelPink : AppColors.unicefBlue,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.end,
+      child: Row(
         children: [
-          // User name or app name
-          Text(
-            isAuthenticated ? (userName ?? 'User') : 'UNICEF Child Protection',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+          // Avatar
+          Container(
+            width: 52,
+            height: 52,
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Icon(
+              isAuthenticated
+                  ? (isChildMode ? Icons.face_rounded : Icons.person_rounded)
+                  : Icons.shield_rounded,
+              color: Colors.white,
+              size: 26,
+            ),
           ),
-          const SizedBox(height: 4),
-          if (isAuthenticated && userEmail != null)
-            Text(
-              userEmail,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.8),
+          const SizedBox(width: 14),
+          // Text content
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  isAuthenticated ? (userName ?? 'User') : 'Child Mandala',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
                   ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          if (!isAuthenticated)
-            Text(
-              'Protecting every child',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.8),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  isAuthenticated
+                      ? (userSubtitle ?? '')
+                      : 'Protecting every child',
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.85),
+                    fontSize: 13,
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
             ),
+          ),
         ],
       ),
     );
@@ -148,7 +217,7 @@ class AppDrawer extends ConsumerWidget {
     required BuildContext context,
     WidgetRef? ref,
     required IconData icon,
-    required IconData selectedIcon,
+    required IconData activeIcon,
     required String title,
     required String routeName,
     bool requiresAuth = false,
@@ -156,65 +225,92 @@ class AppDrawer extends ConsumerWidget {
     final currentRoute = GoRouterState.of(context).name;
     final isSelected = currentRoute == routeName;
 
-    return ListTile(
-      leading: Icon(
-        isSelected ? selectedIcon : icon,
-        color: isSelected ? AppColors.unicefBlue : null,
-      ),
-      title: Text(
-        title,
-        style: TextStyle(
-          color: isSelected ? AppColors.unicefBlue : null,
-          fontWeight: isSelected ? FontWeight.w600 : null,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4),
+      child: Material(
+        color: isSelected ? AppColors.unicefBlue.withValues(alpha: 0.08) : Colors.transparent,
+        borderRadius: BorderRadius.circular(12),
+        child: InkWell(
+          onTap: () {
+            final router = GoRouter.of(context);
+            Navigator.pop(context);
+
+            if (requiresAuth && ref != null) {
+              final isAuthenticated = ref.read(authStateProvider).isAuthenticated;
+              if (!isAuthenticated) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('Please login to access this feature'),
+                    action: SnackBarAction(
+                      label: 'Login',
+                      onPressed: () => router.goNamed(AppRoutes.login),
+                    ),
+                  ),
+                );
+                return;
+              }
+            }
+
+            router.goNamed(routeName);
+          },
+          borderRadius: BorderRadius.circular(12),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+            child: Row(
+              children: [
+                Container(
+                  width: 42,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? AppColors.unicefBlue
+                        : Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    isSelected ? activeIcon : icon,
+                    color: isSelected ? Colors.white : Colors.grey.shade600,
+                    size: 22,
+                  ),
+                ),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      color: isSelected ? AppColors.unicefBlue : AppColors.textDark,
+                      fontSize: 15,
+                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                    ),
+                  ),
+                ),
+                if (isSelected)
+                  Icon(
+                    Icons.chevron_right_rounded,
+                    color: AppColors.unicefBlue,
+                    size: 20,
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
-      selected: isSelected,
-      onTap: () {
-        // Get the router before closing the drawer
-        final router = GoRouter.of(context);
-        Navigator.pop(context); // Close drawer
-
-        if (requiresAuth && ref != null) {
-          final isAuthenticated = ref.read(authStateProvider).isAuthenticated;
-          if (!isAuthenticated) {
-            // Show login prompt for protected routes
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: const Text('Please login to access this feature'),
-                action: SnackBarAction(
-                  label: 'Login',
-                  onPressed: () => router.goNamed(AppRoutes.login),
-                ),
-              ),
-            );
-            return;
-          }
-        }
-
-        router.goNamed(routeName);
-      },
     );
   }
 
-  Widget _buildAuthSection(
+  Widget _buildAuthButton(
     BuildContext context,
     WidgetRef ref,
     bool isAuthenticated,
   ) {
     if (isAuthenticated) {
-      return ListTile(
-        leading: const Icon(Icons.logout, color: AppColors.errorColor),
-        title: const Text(
-          'Logout',
-          style: TextStyle(color: AppColors.errorColor),
-        ),
+      return InkWell(
         onTap: () async {
           final scaffoldMessenger = ScaffoldMessenger.of(context);
           final router = GoRouter.of(context);
-          Navigator.pop(context); // Close drawer
+          Navigator.pop(context);
           await ref.read(authStateProvider.notifier).logout();
-          
-          // Show success message
+
           scaffoldMessenger.showSnackBar(
             const SnackBar(
               content: Text('Logged out successfully!'),
@@ -222,22 +318,63 @@ class AppDrawer extends ConsumerWidget {
               duration: Duration(seconds: 2),
             ),
           );
-          
+
           router.goNamed(AppRoutes.home);
         },
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.unicefBlue),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.logout_rounded, color: AppColors.unicefBlue, size: 20),
+              SizedBox(width: 8),
+              Text(
+                'Logout',
+                style: TextStyle(
+                  color: AppColors.unicefBlue,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,
+                ),
+              ),
+            ],
+          ),
+        ),
       );
     }
 
-    return ListTile(
-      leading: const Icon(Icons.login, color: AppColors.unicefBlue),
-      title: const Text(
-        'Login',
-        style: TextStyle(color: AppColors.unicefBlue),
-      ),
+    return InkWell(
       onTap: () {
         Navigator.pop(context);
         context.goNamed(AppRoutes.login);
       },
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 14),
+        decoration: BoxDecoration(
+          color: AppColors.unicefBlue,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.login_rounded, color: Colors.white, size: 20),
+            SizedBox(width: 8),
+            Text(
+              'Login',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

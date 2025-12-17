@@ -1,0 +1,197 @@
+{
+  "@@locale": "en",
+  "@@author": "UNICEF Bhutan",
+
+  "appName": "Child Mandala",
+  "@appName": {
+    "description": "The application name"
+  },
+
+  "languageSelection": "Select Language",
+  "@languageSelection": {
+    "description": "Language selection screen title"
+  },
+  "english": "English",
+  "dzongkha": "Dzongkha",
+  "continueButton": "Continue",
+  "cancel": "Cancel",
+  "save": "Save",
+  "delete": "Delete",
+  "edit": "Edit",
+  "back": "Back",
+  "next": "Next",
+  "done": "Done",
+  "ok": "OK",
+  "yes": "Yes",
+  "no": "No",
+  "loading": "Loading...",
+  "error": "Error",
+  "success": "Success",
+  "retry": "Retry",
+  "close": "Close",
+
+  "welcome": "Welcome",
+  "welcomeMessage": "Welcome to Child Mandala",
+  "welcomeSubtitle": "Supporting parents and children in Bhutan",
+
+  "login": "Login",
+  "logout": "Logout",
+  "register": "Register",
+  "phoneNumber": "Phone Number",
+  "enterPhoneNumber": "Enter your phone number",
+  "phoneNumberHint": "+975 17 123 456",
+  "sendOtp": "Send OTP",
+  "verifyOtp": "Verify OTP",
+  "enterOtp": "Enter the 6-digit code sent to your phone",
+  "otpSent": "OTP sent to {phoneNumber}",
+  "@otpSent": {
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "resendOtp": "Resend OTP",
+  "resendOtpIn": "Resend in {seconds}s",
+  "@resendOtpIn": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "invalidOtp": "Invalid OTP. Please try again.",
+  "otpExpired": "OTP expired. Please request a new one.",
+
+  "parentMode": "Parent Mode",
+  "childMode": "Child Mode",
+  "switchToParent": "Switch to Parent",
+  "switchToChild": "Switch to Child",
+  "selectChild": "Select Child",
+  "enterPin": "Enter PIN",
+  "enterPinSubtitle": "Enter your 4-digit PIN",
+  "forgotPin": "Forgot PIN?",
+  "incorrectPin": "Incorrect PIN. Please try again.",
+
+  "addChild": "Add Child",
+  "editChild": "Edit Child",
+  "childName": "Child's Name",
+  "dateOfBirth": "Date of Birth",
+  "expectedDueDate": "Expected Due Date",
+  "setPin": "Set PIN",
+  "confirmPin": "Confirm PIN",
+  "pinMismatch": "PINs do not match",
+  "childAdded": "Child added successfully",
+  "childUpdated": "Child updated successfully",
+  "childDeleted": "Child removed",
+  "deleteChildConfirm": "Are you sure you want to remove this child profile?",
+  "noChildren": "No children added yet",
+  "addFirstChild": "Add your first child",
+
+  "ageGroup": "Age Group",
+  "pregnancy": "Expecting",
+  "infant": "0-3 Years",
+  "toddler": "3-5 Years",
+  "child": "6-12 Years",
+  "teen": "13-17 Years",
+  "years": "years",
+  "months": "months",
+  "weeks": "weeks",
+  "dueIn": "Due in {weeks} weeks",
+  "@dueIn": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+
+  "home": "Home",
+  "education": "Education",
+  "chapters": "Chapters",
+  "news": "News",
+  "events": "Events",
+  "safety": "Online Safety",
+  "chatbot": "Chat Assistant",
+  "feedback": "Feedback",
+  "contact": "Contact",
+  "settings": "Settings",
+  "about": "About",
+  "help": "Help",
+  "notifications": "Notifications",
+  "subscribe": "Subscribe",
+  "reportEvent": "Report Event",
+
+  "chapterTitle": "Chapter {number}: {title}",
+  "@chapterTitle": {
+    "placeholders": {
+      "number": {"type": "int"},
+      "title": {"type": "String"}
+    }
+  },
+  "watchVideo": "Watch Video",
+  "readMore": "Read More",
+  "collapse": "Collapse",
+  "expand": "Expand",
+
+  "onlineSafety": "Online Safety",
+  "safetyContent": "Content",
+  "safetyConduct": "Conduct",
+  "safetyContact": "Contact",
+  "safetyContract": "Contract",
+  "safetyTips": "Safety Tips",
+  "reportConcern": "Report a Concern",
+  "safetyContentDesc": "Inappropriate or harmful content online",
+  "safetyConductDesc": "Online behavior and cyberbullying",
+  "safetyContactDesc": "Strangers and online predators",
+  "safetyContractDesc": "Privacy, scams, and data protection",
+
+  "upcomingEvents": "Upcoming Events",
+  "pastEvents": "Past Events",
+  "allEvents": "All Events",
+  "eventDetails": "Event Details",
+  "eventDate": "Date",
+  "eventTime": "Time",
+  "eventLocation": "Location",
+  "virtualEvent": "Virtual Event",
+  "registerNow": "Register Now",
+  "noEvents": "No events found",
+
+  "chatbotTitle": "Chat Assistant",
+  "chatbotWelcome": "Hi! How can I help you today?",
+  "chatbotComingSoon": "Coming Soon",
+  "chatbotComingSoonMessage": "The AI assistant is currently under development.",
+  "typeMessage": "Type a message...",
+  "voiceInput": "Voice Input",
+
+  "submitFeedback": "Submit Feedback",
+  "feedbackSubmitted": "Thank you for your feedback!",
+  "contactUs": "Contact Us",
+  "messageSent": "Message sent successfully",
+
+  "language": "Language",
+  "changeLanguage": "Change Language",
+  "theme": "Theme",
+  "darkMode": "Dark Mode",
+  "lightMode": "Light Mode",
+  "profile": "Profile",
+  "account": "Account",
+  "privacy": "Privacy",
+  "termsOfService": "Terms of Service",
+  "version": "Version",
+
+  "noInternet": "No internet connection",
+  "connectionError": "Connection error. Please try again.",
+  "somethingWentWrong": "Something went wrong",
+  "tryAgain": "Try Again",
+  "pageNotFound": "Page not found",
+
+  "mandalaTitle": "Child Mandala",
+  "mandalaSubtitle": "Holistic Child Development",
+  "exploreSection": "Explore {section}",
+  "@exploreSection": {
+    "placeholders": {
+      "section": {"type": "String"}
+    }
+  }
+}

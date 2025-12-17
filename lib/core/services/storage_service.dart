@@ -24,6 +24,9 @@ class StorageService {
   static const String _keyAuthToken = 'auth_token';
   static const String _keyUser = 'user_data';
   static const String _keyRefreshToken = 'refresh_token';
+  static const String _keyLocale = 'app_locale';
+  static const String _keySession = 'user_session';
+  static const String _keyHasSelectedLocale = 'has_selected_locale';
 
   // Private constructor
   StorageService._internal() {
@@ -324,6 +327,97 @@ class StorageService {
         print('❌ Error clearing all data: $e');
       }
       throw StorageException('Failed to clear all data: $e');
+    }
+  }
+
+  // ============================================================================
+  // LOCALE MANAGEMENT
+  // ============================================================================
+
+  /// Save locale preference
+  Future<void> saveLocale(String languageCode) async {
+    try {
+      await _storage.write(key: _keyLocale, value: languageCode);
+      await _storage.write(key: _keyHasSelectedLocale, value: 'true');
+      if (AppConfig.enableLogging) {
+        print('🌐 Locale saved: $languageCode');
+      }
+    } catch (e) {
+      if (AppConfig.enableLogging) {
+        print('❌ Error saving locale: $e');
+      }
+      throw StorageException('Failed to save locale: $e');
+    }
+  }
+
+  /// Get saved locale
+  Future<String?> getLocale() async {
+    try {
+      return await _storage.read(key: _keyLocale);
+    } catch (e) {
+      if (AppConfig.enableLogging) {
+        print('❌ Error reading locale: $e');
+      }
+      return null;
+    }
+  }
+
+  /// Check if user has selected a locale (first launch check)
+  Future<bool> hasSelectedLocale() async {
+    try {
+      final value = await _storage.read(key: _keyHasSelectedLocale);
+      return value == 'true';
+    } catch (e) {
+      return false;
+    }
+  }
+
+  // ============================================================================
+  // SESSION MANAGEMENT
+  // ============================================================================
+
+  /// Save user session
+  Future<void> saveSession(Map<String, dynamic> session) async {
+    try {
+      final sessionJson = jsonEncode(session);
+      await _storage.write(key: _keySession, value: sessionJson);
+      if (AppConfig.enableLogging) {
+        print('👤 Session saved to secure storage');
+      }
+    } catch (e) {
+      if (AppConfig.enableLogging) {
+        print('❌ Error saving session: $e');
+      }
+      throw StorageException('Failed to save session: $e');
+    }
+  }
+
+  /// Get user session
+  Future<Map<String, dynamic>?> getSession() async {
+    try {
+      final sessionJson = await _storage.read(key: _keySession);
+      if (sessionJson == null) return null;
+      return jsonDecode(sessionJson) as Map<String, dynamic>;
+    } catch (e) {
+      if (AppConfig.enableLogging) {
+        print('❌ Error reading session: $e');
+      }
+      return null;
+    }
+  }
+
+  /// Delete user session
+  Future<void> deleteSession() async {
+    try {
+      await _storage.delete(key: _keySession);
+      if (AppConfig.enableLogging) {
+        print('👤 Session deleted from secure storage');
+      }
+    } catch (e) {
+      if (AppConfig.enableLogging) {
+        print('❌ Error deleting session: $e');
+      }
+      throw StorageException('Failed to delete session: $e');
     }
   }
 
