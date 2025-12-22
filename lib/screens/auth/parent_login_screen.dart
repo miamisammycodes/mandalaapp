@@ -84,20 +84,13 @@ class _ParentLoginScreenState extends ConsumerState<ParentLoginScreen> {
               children: [
                 SizedBox(height: AppDimensions.spaceXl),
 
-                // Logo/Icon
+                // Logo
                 Center(
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: AppColors.unicefBlue.withValues(alpha: 0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.phone_android,
-                      size: 48,
-                      color: AppColors.unicefBlue,
-                    ),
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                    width: 120,
+                    height: 120,
+                    fit: BoxFit.contain,
                   ),
                 ),
                 SizedBox(height: AppDimensions.spaceXl),
@@ -137,35 +130,6 @@ class _ParentLoginScreenState extends ConsumerState<ParentLoginScreen> {
                   isLoading: _isLoading,
                   width: double.infinity,
                 ),
-                SizedBox(height: AppDimensions.spaceLg),
-
-                // Demo hint
-                Container(
-                  padding: EdgeInsets.all(AppDimensions.spaceMd),
-                  decoration: BoxDecoration(
-                    color: AppColors.pastelYellow.withValues(alpha: 0.5),
-                    borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.info_outline,
-                        color: AppColors.textMedium,
-                        size: 20,
-                      ),
-                      SizedBox(width: AppDimensions.spaceSm),
-                      Expanded(
-                        child: Text(
-                          'Demo: Enter any phone number and use code 123456',
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: AppColors.textMedium,
-                              ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
                 SizedBox(height: AppDimensions.spaceXl * 2),
 
                 // Back to language selection

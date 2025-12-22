@@ -368,11 +368,14 @@ class _ChildCard extends StatelessWidget {
                       children: [
                         AgeGroupBadge.fromDateOfBirth(child.dateOfBirth),
                         SizedBox(width: AppDimensions.spaceSm),
-                        Text(
-                          child.ageDisplay,
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: AppColors.textMedium,
-                              ),
+                        Flexible(
+                          child: Text(
+                            child.ageDisplay,
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  color: AppColors.textMedium,
+                                ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ],
                     ),

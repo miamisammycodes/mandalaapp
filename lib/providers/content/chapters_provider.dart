@@ -17,16 +17,19 @@ final allChaptersProvider = Provider<List<IcapChapter>>((ref) {
 });
 
 /// Provider for chapters filtered by active child's age group
-/// Returns all chapters for parents, filtered for children
+/// Returns all chapters for parents, only age-specific chapter for children
 final ageFilteredChaptersProvider = Provider<List<IcapChapter>>((ref) {
   final authState = ref.watch(authStateProvider);
   final allChapters = ref.watch(allChaptersProvider);
 
-  // If in child mode, filter by age group
+  // If in child mode, show only the specific age chapter (not "all ages" chapters)
   if (authState.isChildMode && authState.activeChild != null) {
     final ageGroup = authState.activeChild!.ageGroup;
+    // Filter to chapters that are specifically for this age group only
+    // (excludes chapters that are for all ages like overview, cross-cutting, self-care)
     return allChapters
-        .where((chapter) => chapter.isAvailableFor(ageGroup))
+        .where((chapter) =>
+            chapter.isAvailableFor(ageGroup) && !chapter.isForAllAges)
         .toList();
   }
 

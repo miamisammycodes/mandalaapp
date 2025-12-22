@@ -111,13 +111,6 @@ class AppDrawer extends ConsumerWidget {
                 ),
                 _buildNavItem(
                   context: context,
-                  icon: Icons.mail_outline_rounded,
-                  activeIcon: Icons.mail_rounded,
-                  title: 'Subscribe',
-                  routeName: AppRoutes.subscribe,
-                ),
-                _buildNavItem(
-                  context: context,
                   icon: Icons.help_outline_rounded,
                   activeIcon: Icons.help_rounded,
                   title: 'Contact Us',

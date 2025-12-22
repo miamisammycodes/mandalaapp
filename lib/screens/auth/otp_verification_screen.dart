@@ -135,8 +135,6 @@ class _OtpVerificationScreenState extends ConsumerState<OtpVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final demoOtp = ref.read(otpStateProvider.notifier).demoOtp;
-
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -257,34 +255,6 @@ class _OtpVerificationScreenState extends ConsumerState<OtpVerificationScreen> {
                       ),
                     ),
                 ],
-              ),
-              SizedBox(height: AppDimensions.spaceXl),
-
-              // Demo hint
-              Container(
-                padding: EdgeInsets.all(AppDimensions.spaceMd),
-                decoration: BoxDecoration(
-                  color: AppColors.pastelYellow.withValues(alpha: 0.5),
-                  borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.info_outline,
-                      color: AppColors.textMedium,
-                      size: 20,
-                    ),
-                    SizedBox(width: AppDimensions.spaceSm),
-                    Expanded(
-                      child: Text(
-                        'Demo: Use code $demoOtp',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: AppColors.textMedium,
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ],
           ),

@@ -46,19 +46,12 @@ class _LanguageSelectionScreenState
           child: Column(
             children: [
               const Spacer(),
-              // Logo/Icon
-              Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  color: AppColors.unicefBlue.withValues(alpha: 0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.language,
-                  size: 60,
-                  color: AppColors.unicefBlue,
-                ),
+              // Logo
+              Image.asset(
+                'assets/images/logo.png',
+                width: 150,
+                height: 150,
+                fit: BoxFit.contain,
               ),
               SizedBox(height: AppDimensions.spaceXl),
 
