@@ -71,6 +71,13 @@ class AppDrawer extends ConsumerWidget {
                   title: 'Online Safety',
                   routeName: AppRoutes.onlineSafety,
                 ),
+                _buildNavItem(
+                  context: context,
+                  icon: Icons.chat_outlined,
+                  activeIcon: Icons.chat_rounded,
+                  title: 'Chat Support',
+                  routeName: AppRoutes.chatbot,
+                ),
 
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 12),

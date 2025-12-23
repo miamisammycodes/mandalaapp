@@ -75,6 +75,40 @@ class _MandalaHomeScreenState extends State<MandalaHomeScreen> {
 
     return AppScaffold(
       title: 'The Child Mandala App',
+      floatingActionButton: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          gradient: const LinearGradient(
+            colors: [AppColors.unicefBlue, Color(0xFF0D8BD9)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.unicefBlue.withValues(alpha: 0.4),
+              blurRadius: 12,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        child: FloatingActionButton.extended(
+          onPressed: () => context.pushNamed(AppRoutes.chatbot),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          highlightElevation: 0,
+          icon: const Icon(
+            Icons.chat_rounded,
+            color: Colors.white,
+          ),
+          label: const Text(
+            'Chat',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

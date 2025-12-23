@@ -30,6 +30,7 @@ import '../../screens/safety/online_safety_screen.dart';
 import '../../screens/safety/safety_topic_screen.dart';
 import '../../screens/safety/safety_tips_screen.dart';
 import '../../screens/safety/report_concern_screen.dart';
+import '../../screens/chatbot/chatbot_screen.dart';
 
 /// Route names for type-safe navigation
 class AppRoutes {
@@ -65,6 +66,8 @@ class AppRoutes {
   static const String safetyTopic = 'safety-topic';
   static const String safetyTips = 'safety-tips';
   static const String reportConcern = 'report-concern';
+  // Chatbot routes
+  static const String chatbot = 'chatbot';
 }
 
 /// Route paths
@@ -101,6 +104,8 @@ class AppPaths {
   static const String safetyTopic = '/safety/:categoryId';
   static const String safetyTips = '/safety/tips';
   static const String reportConcern = '/safety/report';
+  // Chatbot paths
+  static const String chatbot = '/chatbot';
 
   /// Routes that require authentication
   static const List<String> protectedRoutes = [
@@ -388,6 +393,13 @@ final List<RouteBase> _routes = [
       final categoryId = state.pathParameters['categoryId']!;
       return SafetyTopicScreen(categoryId: categoryId);
     },
+  ),
+
+  // Chatbot route (Phase 10)
+  GoRoute(
+    path: AppPaths.chatbot,
+    name: AppRoutes.chatbot,
+    builder: (context, state) => const ChatbotScreen(),
   ),
 ];
 
