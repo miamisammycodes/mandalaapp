@@ -11,8 +11,8 @@ class ChatbotService {
 
   /// Get the welcome message when chat starts
   String getWelcomeMessage() {
-    return "Hello! I'm the UNICEF Child Protection Assistant. "
-        "I can help you learn about child protection, online safety, and parenting resources. "
+    return "Hello! I'm the UNICEF Child Care Assistant. "
+        "I can help you learn about child care, online safety, and parenting resources."
         "This feature is still being developed, but feel free to ask me anything!";
   }
 

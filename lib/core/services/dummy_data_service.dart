@@ -304,7 +304,7 @@ class DummyDataService {
         'Digital Learning Programs Expand Across Region',
       ],
       'Protection': [
-        'Child Protection Services Strengthened in Communities',
+        'Child Care Services Strengthened in Communities',
         'New Policies to Combat Child Labor Announced',
         'Safe Spaces Created for Vulnerable Children',
       ],

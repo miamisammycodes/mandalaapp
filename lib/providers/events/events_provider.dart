@@ -156,7 +156,7 @@ final _mockEvents = [
   // Upcoming events
   Event(
     id: 'event-1',
-    title: 'Child Protection Awareness Workshop',
+    title: 'Child Care Awareness Workshop',
     description:
         'Join us for a comprehensive workshop on understanding child rights and protection mechanisms in Bhutan. Learn about the legal framework, reporting procedures, and support services available for children.\n\nThis workshop is ideal for parents, educators, and community leaders who want to better understand how to protect children in their communities.',
     eventDate: DateTime.now().add(const Duration(days: 3)),

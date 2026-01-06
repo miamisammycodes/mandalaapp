@@ -1,0 +1,44 @@
+[debug] [2025-12-30T04:37:33.291Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T04:37:33.293Z] > authorizing via signed-in user (sameer@abit.bt)
+[debug] [2025-12-30T04:37:33.293Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T04:37:33.293Z] > authorizing via signed-in user (sameer@abit.bt)
+[debug] [2025-12-30T04:37:33.293Z] Checked if tokens are valid: false, expires at: 1764156517787
+[debug] [2025-12-30T04:37:33.293Z] Checked if tokens are valid: false, expires at: 1764156517787
+[debug] [2025-12-30T04:37:33.293Z] > refreshing access token with scopes: []
+[debug] [2025-12-30T04:37:33.294Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-30T04:37:33.294Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T04:37:33.307Z] Checked if tokens are valid: false, expires at: 1764156517787
+[debug] [2025-12-30T04:37:33.307Z] Checked if tokens are valid: false, expires at: 1764156517787
+[debug] [2025-12-30T04:37:33.308Z] > refreshing access token with scopes: []
+[debug] [2025-12-30T04:37:33.308Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-30T04:37:33.308Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T04:37:33.309Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T04:37:33.309Z] > authorizing via signed-in user (sameer@abit.bt)
+[debug] [2025-12-30T04:37:33.309Z] Checked if tokens are valid: false, expires at: 1764156517787
+[debug] [2025-12-30T04:37:33.309Z] Checked if tokens are valid: false, expires at: 1764156517787
+[debug] [2025-12-30T04:37:33.309Z] > refreshing access token with scopes: []
+[debug] [2025-12-30T04:37:33.309Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-30T04:37:33.309Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T04:37:33.559Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2026-01-01T07:58:53.338Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-01T07:58:53.340Z] > authorizing via signed-in user (sameer@abit.bt)
+[debug] [2026-01-01T07:58:53.340Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-01T07:58:53.340Z] > authorizing via signed-in user (sameer@abit.bt)
+[debug] [2026-01-01T07:58:53.340Z] Checked if tokens are valid: false, expires at: 1764156517787
+[debug] [2026-01-01T07:58:53.340Z] Checked if tokens are valid: false, expires at: 1764156517787
+[debug] [2026-01-01T07:58:53.340Z] > refreshing access token with scopes: []
+[debug] [2026-01-01T07:58:53.341Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-01-01T07:58:53.341Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-01T07:58:53.355Z] Checked if tokens are valid: false, expires at: 1764156517787
+[debug] [2026-01-01T07:58:53.355Z] Checked if tokens are valid: false, expires at: 1764156517787
+[debug] [2026-01-01T07:58:53.355Z] > refreshing access token with scopes: []
+[debug] [2026-01-01T07:58:53.355Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-01-01T07:58:53.355Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-01T07:58:53.356Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-01-01T07:58:53.356Z] > authorizing via signed-in user (sameer@abit.bt)
+[debug] [2026-01-01T07:58:53.356Z] Checked if tokens are valid: false, expires at: 1764156517787
+[debug] [2026-01-01T07:58:53.356Z] Checked if tokens are valid: false, expires at: 1764156517787
+[debug] [2026-01-01T07:58:53.356Z] > refreshing access token with scopes: []
+[debug] [2026-01-01T07:58:53.356Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-01-01T07:58:53.356Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-01-01T07:58:53.790Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400

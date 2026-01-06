@@ -810,8 +810,8 @@ Keep these important numbers handy for when you need help.
 - **Fire:** 110
 - **Ambulance:** 112
 
-### Child Protection
-- **Women and Child Protection Unit (WCPU)**
+### Child Care
+- **Women and Child Care Unit (WCCU)**
 - **National Commission for Women and Children (NCWC)**
 
 ### Mental Health Support

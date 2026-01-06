@@ -13,7 +13,7 @@ class AppConfig {
   // ============================================================================
 
   /// Application name
-  static const String appName = 'UNICEF Child Protection';
+  static const String appName = 'UNICEF Child Care';
 
   /// Application version
   static const String appVersion = '1.0.0';
